@@ -4,4 +4,4 @@
  (flags :standard -warn-error -27-26-32-33)
  (preprocess
   (pps ppx_jane))
- (libraries snarky core))
+ (libraries snarky core libsnark.libsnark_bindings))

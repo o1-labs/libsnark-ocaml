@@ -3,4 +3,9 @@
  (modes native)
  (preprocess
   (pps ppx_jane ppx_deriving.enum))
- (libraries snarky core snarky_cuda))
+ (libraries
+  snarky
+  core
+  snarky_cuda
+  libsnark.libsnark_bindings
+  libsnark.gpu_prover))

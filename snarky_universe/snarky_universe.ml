@@ -51,9 +51,9 @@ let impl (type f) (curve : f Curve.t) system :
     | Bn128 -> (
       match system with
       | Groth16 ->
-          (module Backends.Bn128.Default)
+          (module Snarky_libsnark_bindings.Libsnark.Bn128.Default)
       | GrothMaller17 ->
-          (module Backends.Bn128.GM) )
+          (module Snarky_libsnark_bindings.Libsnark.Bn128.GM) )
   in
   f system
 
@@ -494,7 +494,7 @@ let create (type f) (curve : f Curve.t) system =
 let default () = create Bn128 Groth16
 
 module Bn128 = Make (struct
-  type field = Snarky.Backends.Bn128.Field.t
+  type field = Snarky_libsnark_bindings.Libsnark.Bn128.Field.t
 
   let curve = Curve.Bn128
 

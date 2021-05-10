@@ -1,7 +1,0 @@
-(library
- (name ppx_h_list)
- (public_name h_list.ppx)
- (kind ppx_deriver)
- (libraries ppxlib)
- (preprocess (pps ppxlib.metaquot))
- (ppx_runtime_libraries h_list))

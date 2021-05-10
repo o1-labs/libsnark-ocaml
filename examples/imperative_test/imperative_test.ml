@@ -52,7 +52,7 @@ let test2 (type f) ((module I) : f m) x =
 let test3 (type f) ((module I) : f m) x = test (module I) x I.Field.one
 
 let prove () =
-  let ((module I) as i) = make (module Backends.Mnt4.GM) in
+  let ((module I) as i) = make (module Snarky_libsnark_bindings.Libsnark.Mnt4.GM) in
   let i = ignore_state i in
   let open I in
   let exposing = Data_spec.[Field.typ] in
@@ -65,17 +65,17 @@ let prove () =
   , Binable.to_string (module Verification_key) (Keypair.vk keys) )
 
 let verify proof vk =
-  let (module I) = make (module Backends.Mnt4.GM) in
+  let (module I) = make (module Snarky_libsnark_bindings.Libsnark.Mnt4.GM) in
   let open I in
   let exposing = Data_spec.[Field.typ] in
   let proof = Binable.of_string (module Proof) proof in
   let vk = Binable.of_string (module Verification_key) vk in
   verify proof vk exposing (Field.Constant.of_int 17)
 
-module Intf = Snark.Run.Make (Backends.Mnt4.GM) (Unit)
+module Intf = Snark.Run.Make (Snarky_libsnark_bindings.Libsnark.Mnt4.GM) (Unit)
 
 module Old = struct
-  module M = Snark.Make (Backends.Mnt4.GM)
+  module M = Snark.Make (Snarky_libsnark_bindings.Libsnark.Mnt4.GM)
   open M
 
   let f = Field.Checked.mul

@@ -1,0 +1,37 @@
+name: check build
+
+on: [pull_request, push]
+
+jobs:
+  run_dune_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v2
+
+      - name: Set up ocaml 4.07.1
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: 4.07.1
+
+      - name: Install dependencies
+        run: |
+          eval $(opam env)
+          opam install dune
+          opam pin add https://github.com/o1-labs/snarky.git#no-libsnark
+
+      - name: Make sure we can exec an example
+        run: |
+          eval $(opam env)
+          dune exec examples/election/election_main.exe
+
+      - name: Make sure we can build everything
+        run: |
+          eval $(opam env)
+          dune build
+      
+      - name: Check Opam package
+        run: |
+          eval $(opam env)
+          opam pin add .

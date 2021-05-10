@@ -1,5 +1,5 @@
 open Snarky
-module Backend = Libsnark.Mnt4753.Default
+module Backend = Snarky_libsnark_bindings.Libsnark.Mnt4753.Default
 
 let backend_bigint_of_bigint n =
   Backend.Bigint.R.of_decimal_string (Bigint.to_string n)

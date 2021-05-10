@@ -1,11 +1,15 @@
 (library
  (name snarky_bench)
- (libraries core snarky)
+ (libraries core snarky libsnark.libsnark_bindings)
  (modules :standard \ main)
  (library_flags -linkall)
- (preprocess (pps ppx_jane ppx_bench)))
+ (preprocess
+  (pps ppx_jane ppx_bench)))
 
 (executable
  (name main)
  (modules main)
- (libraries snarky_bench core_bench.inline_benchmarks))
+ (libraries
+  snarky_bench
+  core_bench.inline_benchmarks
+  libsnark.libsnark_bindings))

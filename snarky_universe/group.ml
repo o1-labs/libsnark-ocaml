@@ -15,7 +15,7 @@ let params_of_curve : type f. f Curve.t -> string params = function
       bn128
 
 module Bn128 = struct
-  module B = Snarky.Backend_extended.Make (Snarky.Backends.Bn128.Default)
+  module B = Snarky.Backend_extended.Make (Snarky_libsnark_bindings.Libsnark.Bn128.Default)
 
   type field = B.Field.t
 

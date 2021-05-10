@@ -10,7 +10,7 @@ open Snark
    multiplication of variables costs 1.
 *)
 (* First we instantiate Snarky with a 'backend' *)
-module M = Run.Make (Backends.Bn128.Default) (Unit)
+module M = Run.Make (Snarky_libsnark_bindings.Libsnark.Bn128.Default) (Unit)
 open M
 
 (* In snarky, we write "checked computations",

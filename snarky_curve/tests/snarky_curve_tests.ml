@@ -3,7 +3,7 @@ open Snarky_curve
 let%test_unit "mnt4" =
   let module T = For_native_base_field (struct
     module Impl =
-      Snarky.Snark.Run.Make (Snarky.Backends.Mnt4.Default) (Core.Unit)
+      Snarky.Snark.Run.Make (Snarky_libsnark_bindings.Libsnark.Mnt4.Default) (Core.Unit)
 
     module F = struct
       include (
@@ -26,13 +26,13 @@ let%test_unit "mnt4" =
     end
 
     module Params = struct
-      let one = Snarky.Backends.Mnt6.G1.(to_affine_exn one)
+      let one = Snarky_libsnark_bindings.Libsnark.Mnt6.G1.(to_affine_exn one)
 
-      include Snarky.Backends.Mnt6.G1.Coefficients
+      include Snarky_libsnark_bindings.Libsnark.Mnt6.G1.Coefficients
 
-      let group_size_in_bits = Snarky.Backends.Mnt6.Field.size_in_bits
+      let group_size_in_bits = Snarky_libsnark_bindings.Libsnark.Mnt6.Field.size_in_bits
     end
 
-    module Constant = Snarky.Backends.Mnt6.G1
+    module Constant = Snarky_libsnark_bindings.Libsnark.Mnt6.G1
   end) in
   ()

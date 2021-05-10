@@ -3,4 +3,4 @@
  (modes native)
  (preprocess
   (pps ppx_jane))
- (libraries snarky core))
+ (libraries snarky core libsnark.libsnark_bindings))

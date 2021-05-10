@@ -1,5 +1,5 @@
 open Core
-module Snark = Snarky.Snark.Make (Snarky.Backends.Mnt4.GM)
+module Snark = Snarky.Snark.Make (Snarky_libsnark_bindings.Libsnark.Mnt4.GM)
 
 let%bench_fun "projecting 256-bit list" =
   let l = List.init 256 ~f:(Fn.const true) in

@@ -13,4 +13,4 @@ val create :
   'f Curve.t -> proof_system -> (module Intf.S with type Impl.field = 'f)
 
 val default :
-  unit -> (module Intf.S with type Impl.field = Snarky.Backends.Bn128.Field.t)
+  unit -> (module Intf.S with type Impl.field = Snarky_libsnark_bindings.Libsnark.Bn128.Field.t)

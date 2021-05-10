@@ -1,29 +1,50 @@
+(data_only_dirs libsnark-caml)
+
+;; This library only packages the upstream libre2 library. We put in a
+;; separate library rather than putting in re2 directly to avoid
+;; having to merge the .a and .so for libre2 and for the stubs of re2,
+;; which is hard to do in a portable way
+
+(executable
+ (name camlsnark_linker_flags_gen)
+ (modules camlsnark_linker_flags_gen)
+ (libraries dune.configurator))
+
+(rule
+ (targets flags.sexp)
+ (action
+  (run ./camlsnark_linker_flags_gen.exe)))
+
+(executable
+ (name camlsnark_ctypes_stubs)
+ (libraries libsnark.c_bindings ctypes ctypes.stubs core_kernel)
+ (modules camlsnark_ctypes_stubs))
+
 (library
- (name snarky)
- (public_name snarky)
- (inline_tests)
- (modes native)
+ (name camlsnark_c)
+ (public_name libsnark.c)
  (libraries
-   base64
-   bignum
-   bitstring_lib
-   camlsnark_c
-   core_kernel
-   ctypes
-   ctypes_foreign_libffi
-   fold_lib
-   h_list
-   interval_union
-   snarky.backendless
-   snarky.cpp_string
-   snarky.cpp_vector
-   snarky.libsnark_bindings
-   snarky.intf
-   tuple_lib
-   yojson
-   (select gpu_prover.ml from
-    (groth16_gpu_prover -> gpu_prover.gpu.ml)
-    (-> gpu_prover.no_gpu.ml)))
- (preprocess
-  (pps ppx_snarky ppx_jane ppx_deriving.enum ppx_deriving.eq bisect_ppx --
-    --conditional)))
+  libsnark.c_bindings
+  core
+  ctypes
+  ctypes.foreign
+  libsnark.libsnark_caml_bn128
+  libsnark.libsnark_caml_common
+  libsnark.libsnark_caml_mnt298
+  libsnark.libsnark_caml_mnt753)
+ (modes native)
+ (modules :standard \ camlsnark_linker_flags_gen camlsnark_ctypes_stubs)
+ (preprocess no_preprocessing)
+ (c_library_flags
+  :standard
+  (:include flags.sexp)))
+
+(rule
+ (targets libgroth16_gpu_prover_stubs.a)
+ (deps
+  (source_tree libsnark-caml)
+  (env_var SNARKY_PERFORMANCE)
+  setup_stubs.sh)
+ (action
+  (bash
+   "\n ./setup_stubs.sh\n pushd libsnark-caml/build\n   make -j$(sysctl -n hw.logicalcpu) caml_cuda_prover\n popd\n cp libsnark-caml/build/cuda_prover/libcaml_cuda_prover.a libgroth16_gpu_prover_stubs.a\n")))

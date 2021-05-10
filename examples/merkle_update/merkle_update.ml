@@ -4,7 +4,7 @@
    the Bn128-based snark. *)
 open Core
 open Snarky
-module Snark = Snark.Make (Snark.Backends.Bn128.Default)
+module Snark = Snark.Make (Snarky_libsnark_bindings.Libsnark.Bn128.Default)
 module Knapsack = Knapsack.Make (Snark)
 open Snark
 open Let_syntax

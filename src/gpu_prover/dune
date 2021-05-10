@@ -1,0 +1,14 @@
+(library
+ (name gpu_prover)
+ (public_name libsnark.gpu_prover)
+ (libraries
+  libsnark.c_bindings
+  libsnark.libsnark_bindings
+  snarky
+  (select
+   gpu_prover.ml
+   from
+   (groth16_gpu_prover -> gpu_prover.gpu.ml)
+   (-> gpu_prover.no_gpu.ml)))
+ (preprocess
+  (pps ppx_jane)))
