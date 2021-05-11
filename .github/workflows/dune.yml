@@ -17,6 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          ./depends.sh
           eval $(opam env)
           opam install dune
           opam pin add https://github.com/o1-labs/snarky.git#no-libsnark
