@@ -47,4 +47,4 @@
   setup_stubs.sh)
  (action
   (bash
-   "\n ./setup_stubs.sh\n pushd libsnark-caml/build\n   make -j$(sysctl -n hw.logicalcpu) caml_cuda_prover\n popd\n cp libsnark-caml/build/cuda_prover/libcaml_cuda_prover.a libgroth16_gpu_prover_stubs.a\n")))
+   "\n ./setup_stubs.sh\n pushd libsnark-caml/build\n   make -j$(nproc) caml_cuda_prover\n popd\n cp libsnark-caml/build/cuda_prover/libcaml_cuda_prover.a libgroth16_gpu_prover_stubs.a\n")))

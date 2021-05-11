@@ -47,7 +47,7 @@ if [ "$OS_NAME" = 'Linux' ]; then
   fi
 
 elif [ "$OS_NAME" = 'Darwin' ]; then
-  PACKAGES="gpatch opam cmake gmp pkg-config openssl libffi libsodium boost zlib libomp"
+  PACKAGES="gpatch opam cmake gmp pkg-config openssl libffi libsodium boost zlib libomp coreutils"
 
   # removing already installed packages from the list
   for p in $(env HOMEBREW_NO_AUTO_UPDATE=1 brew list); do
