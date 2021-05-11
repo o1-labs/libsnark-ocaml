@@ -31,16 +31,17 @@ if [ "$OS_NAME" = 'Linux' ]; then
       sudo apt-get install libprocps3-dev
     else
       # Try all of the different packages for libprocps-dev, in order of package recency
-      sudo apt-get install libprocps-dev || sudo apt-get install libprocps4-dev || sudo apt-get install libprocps3-dev
+      sudo apt-get install libprocps-dev || sudo apt-get install libprocps4-dev || sudo apt-get install libprocps3-dev libsodium-dev
+
     fi
 
   elif [ "$DISTRO" = 'Fedora' ]; then
     # Install common dependencies
-    sudo yum install gcc-c++ cmake make git gmp-devel procps-ng-devel
+    sudo yum install gcc-c++ cmake make git gmp-devel procps-ng-devel libsodium-devel
 
   elif [ "$DISTRO" = 'Debian' ]; then
     # Install common dependencies (WARNING: Untested)
-    sudo apt-get install build-essential cmake git libgmp3-dev libboost-all-dev libssl-dev libprocps-dev
+    sudo apt-get install build-essential cmake git libgmp3-dev libboost-all-dev libssl-dev libprocps-dev libsodium-dev
 
   else
     echo "Unrecognised Linux distribution: $DISTRO"
