@@ -19,7 +19,7 @@ jobs:
         run: |
           ./depends.sh
           eval $(opam env)
-          opam install dune
+          opam install dune digestif core_bench reason
           opam pin add https://github.com/o1-labs/snarky.git#no-libsnark
 
       - name: Make sure we can exec an example
