@@ -20,7 +20,7 @@ if [ "$OS_NAME" = 'Linux' ]; then
 
   if [ "$DISTRO" = 'Ubuntu' ]; then
     # Install common dependencies
-    sudo apt-get install build-essential cmake git libgmp3-dev libboost-all-dev libssl-dev
+    sudo apt-get install build-essential cmake git libgmp3-dev libboost-all-dev libssl-dev libsodium-dev
     # Install the right version of libprocps-dev for the release
     RELEASE=$(lsb_release -s --release)
     if [ "$RELEASE" = '18.04' ]; then
@@ -31,7 +31,7 @@ if [ "$OS_NAME" = 'Linux' ]; then
       sudo apt-get install libprocps3-dev
     else
       # Try all of the different packages for libprocps-dev, in order of package recency
-      sudo apt-get install libprocps-dev || sudo apt-get install libprocps4-dev || sudo apt-get install libprocps3-dev libsodium-dev
+      sudo apt-get install libprocps-dev || sudo apt-get install libprocps4-dev || sudo apt-get install libprocps3-dev
 
     fi
 
